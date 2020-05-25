@@ -1,5 +1,9 @@
 from package.loader import create_connection, create_table, create_index
 from package.reader import process_file
+from package.file_downloader import download_file
+import os
+
+download_file("https://datasets.imdbws.com/title.basics.tsv.gz")
 
 conn = create_connection('movies.db')
 
@@ -18,4 +22,8 @@ create_table(conn, table_sql)
 create_index(conn, index_sql)
 
 with conn:
-    process_file('title.basics.tsv.gz', conn)
+    process_file('file', conn)
+
+os.remove('file')
+print('File removed')
+print('Database process completed')

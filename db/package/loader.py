@@ -38,7 +38,6 @@ def check_if_movie_exists(conn, imdbId):
         if movie_exists:
             return True
         else:
-            input("This movie doesn't exist, press enter to continue %s" % imdbId)
             return False
     except Error as e:
         print("error in imdbId check", e)
