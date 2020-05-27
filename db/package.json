@@ -1,0 +1,15 @@
+{
+  "name": "movie-rater-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.py",
+  "scripts": {
+    "test": "python -m unittest",
+    "start-db": "docker pull mongo:latest && docker run --name movie-rater-db -p 27017:27017 -d mongo:latest",
+    "stop-db": "docker stop movie-rater-db",
+    "remove-db": "docker rm movie-rater-db"
+  },
+  "author": "Matthew Sherrill",
+  "license": "ISC"
+}
+
