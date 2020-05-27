@@ -38,3 +38,4 @@ def process_file(file, collection):
 
         if len(objects_to_insert > 0):
             create_movies(collection, objects_to_insert)
+            #test comment
