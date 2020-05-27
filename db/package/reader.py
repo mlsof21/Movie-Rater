@@ -35,3 +35,6 @@ def process_file(file, collection):
                 objects_to_insert.clear()
 
             line = f.readline()
+
+        if len(objects_to_insert > 0):
+            create_movies(collection, objects_to_insert)
