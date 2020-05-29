@@ -1,3 +1,5 @@
+import mongoose from '../../common/services/mongoose.services';
+
 const userSchema = new userSchema({
     firstName: String,
     lastName: String,
@@ -7,3 +9,8 @@ const userSchema = new userSchema({
 });
 
 const userModel = mongoose.model('Users', userSchema);
+
+exports.createUser = (userData) => {
+    const user = new User(userData);
+    return user.save();
+};
