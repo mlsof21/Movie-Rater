@@ -8,11 +8,14 @@
 /.pnp
 .pnp.js
 
+package-lock.json
+
 # testing
 /coverage
 
 # production
 /build
+/api
 
 # misc
 .DS_Store

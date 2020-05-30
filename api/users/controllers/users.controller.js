@@ -1,3 +1,5 @@
+
+
 exports.insert = (req, res) => {
     let salt = crypto.randomBytes(16).toString('base64');
     let hash = crypto.createHmac('sha512', salt)
@@ -9,5 +11,8 @@ exports.insert = (req, res) => {
     UserModel.createUser(req.body)
         .then((result) => {
             res.status(201).send({id: result._id});
-        });    
+        });
 };
+
+exports.getById = (req, res) => {
+}

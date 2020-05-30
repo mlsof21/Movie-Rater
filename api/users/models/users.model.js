@@ -1,4 +1,5 @@
 import mongoose from '../../common/services/mongoose.services';
+const Schema = mongoose.Schema;
 
 const userSchema = new userSchema({
     firstName: String,
