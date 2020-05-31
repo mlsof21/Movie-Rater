@@ -26,3 +26,5 @@ server.listen(port, () => {
     console.log(`Routes configured for ${route.getName()} this is test`);
   });
 });
+
+export default app;
