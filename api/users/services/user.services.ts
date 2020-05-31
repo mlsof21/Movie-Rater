@@ -36,6 +36,10 @@ export class UsersService implements CRUD {
     return this.dao.getUserById(resourceId);
   }
 
+  getByEmail(email: string) {
+    return this.dao.getUserByEmail(email);
+  }
+
   updateById(resource: any) {
     return this.dao.putUserById(resource);
   }

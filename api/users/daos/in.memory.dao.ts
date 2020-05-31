@@ -34,7 +34,7 @@ export class GenericInMemoryDao {
   getUserById(userId: string) {
     console.log(userId);
     console.log(this.users);
-    return this.users.find((user: { id: String }) => user.id === userId);
+    return this.users.find((user: { id: string }) => user.id === userId);
   }
 
   putUserById(user: any) {
@@ -77,5 +77,9 @@ export class GenericInMemoryDao {
     console.log(objIndex);
     this.users.splice(objIndex, 1);
     return `${userId} deleted`;
+  }
+
+  getUserByEmail(email: string) {
+    return this.users.find((obj: { email: string }) => obj.email === email);
   }
 }
