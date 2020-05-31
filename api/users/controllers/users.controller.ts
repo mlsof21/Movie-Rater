@@ -34,7 +34,6 @@ export class UsersController {
 
   removeUser(req: express.Request, res: express.Response) {
     const usersService = UsersService.getInstance();
-    console.log(req.params.userId);
     usersService.deleteById(req.params.userId);
     res.status(204).send(``);
   }

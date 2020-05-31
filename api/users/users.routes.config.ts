@@ -4,7 +4,7 @@ import {
 } from '../common/common.routes.config';
 import express from 'express';
 import { UsersController } from './controllers/users.controller';
-import { UsersMiddleware } from './middlewares/users.middlewares';
+import { UsersMiddleware } from './middlewares/users.middleware';
 
 export class UserRoutes extends CommonRoutesConfig implements configureRoutes {
   constructor(app: express.Application) {

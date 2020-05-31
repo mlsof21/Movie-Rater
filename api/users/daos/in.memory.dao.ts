@@ -17,7 +17,6 @@ export class GenericInMemoryDao {
     let length: number = this.users.length;
     let newId = 0;
     if (length > 0) {
-      console.log(length);
       newId = parseInt(this.users[length - 1].id) + 1;
     } else {
       newId = 1;
@@ -32,8 +31,6 @@ export class GenericInMemoryDao {
   }
 
   getUserById(userId: string) {
-    console.log(userId);
-    console.log(this.users);
     return this.users.find((user: { id: string }) => user.id === userId);
   }
 
@@ -74,7 +71,6 @@ export class GenericInMemoryDao {
     const objIndex = this.users.findIndex(
       (obj: { id: any }) => obj.id === userId
     );
-    console.log(objIndex);
     this.users.splice(objIndex, 1);
     return `${userId} deleted`;
   }
