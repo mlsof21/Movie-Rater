@@ -15,11 +15,3 @@ export class CommonRoutesConfig {
 }
 
 export interface configureRoutes {}
-
-// app.post('/users', [
-//     UsersController.insert
-// ]);
-
-// app.get('/users/:userId', [
-//     UsersController.getById
-// ]);

@@ -12,11 +12,7 @@ export class AuthMiddleware {
     return AuthMiddleware.instance;
   }
 
-  async validateBodyRequest(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) {
+  async validateBodyRequest(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (req.body && req.body.email && req.body.password) {
       next();
     } else {
@@ -24,23 +20,15 @@ export class AuthMiddleware {
     }
   }
 
-  async verifyUserPassword(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) {
+  async verifyUserPassword(req: express.Request, res: express.Response, next: express.NextFunction) {
     const userService = UsersService.getInstance();
     const user: any = await userService.getByEmail(req.body.email);
-
     if (user) {
       let passwordHash = user.password;
       const sp = new SecurePass();
       const passwordBuffer = Buffer.from(passwordHash, 'utf8');
       const requestPassword = Buffer.from(req.body.password, 'utf8');
-
-      console.log(passwordBuffer, requestPassword);
-      const result = sp.verifyHashSync(requestPassword, passwordBuffer);
-
+      const result = await sp.verifyHash(requestPassword, passwordBuffer);
       if (SecurePass.isValid(result)) {
         req.body = {
           userId: user.id,

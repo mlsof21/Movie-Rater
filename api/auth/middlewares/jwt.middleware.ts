@@ -16,11 +16,7 @@ export class JwtMiddleware {
     return JwtMiddleware.instance;
   }
 
-  verifyRefreshBodyField(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) {
+  verifyRefreshBodyField(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (req.body && req.body.refreshToken) {
       return next();
     } else {
@@ -28,11 +24,7 @@ export class JwtMiddleware {
     }
   }
 
-  validRefreshNeeded(
-    req: any,
-    res: express.Response,
-    next: express.NextFunction
-  ) {
+  validRefreshNeeded(req: any, res: express.Response, next: express.NextFunction) {
     let b = Buffer.from(req.body.refreshToken, 'base64');
     let refreshToken = b.toString();
     let hash = crypto
@@ -54,7 +46,6 @@ export class JwtMiddleware {
     if (req.headers['authorization']) {
       try {
         let authorization = req.headers['authorization'].split(' ');
-        console.log(authorization);
         if (authorization[0] !== 'Bearer') {
           return res.status(401).send();
         } else {

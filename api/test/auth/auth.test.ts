@@ -1,6 +1,9 @@
 import app from '../../app';
 import { agent as request } from 'supertest';
 import { expect } from 'chai';
+
+const util = require('util');
+
 let firstUserIdTest = '';
 let firstUserBody = {
   name: 'Marcos Silva',
@@ -12,7 +15,7 @@ let jwt = {
   refreshToken: '',
 };
 
-it('should POST /users', async function () {
+it('should POST /users', async () => {
   const res = await request(app).post('/users').send(firstUserBody);
   expect(res.status).to.equal(201);
   expect(res.body).not.to.be.empty;
@@ -47,12 +50,9 @@ it(`should POST to /auth/refresh-token and receive 403 for having an invalid JWT
 });
 
 it(`should POST to /auth/refresh-token and receive 401 for not having a JWT set`, async () => {
-  const res = await request(app)
-    .post('/auth/refresh-token')
-    .set('Accept', 'application/json')
-    .send({
-      refreshToken: jwt.refreshToken,
-    });
+  const res = await request(app).post('/auth/refresh-token').set('Accept', 'application/json').send({
+    refreshToken: jwt.refreshToken,
+  });
   expect(res.status).to.equal(401);
 });
 

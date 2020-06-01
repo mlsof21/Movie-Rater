@@ -14,20 +14,12 @@ export class AuthController {
     try {
       let refreshId = req.body.userId + jwtSecret;
       let salt = crypto.randomBytes(16).toString('base64');
-      let hash = crypto
-        .createHmac('sha512', salt)
-        .update(refreshId)
-        .digest('base64');
+      let hash = crypto.createHmac('sha512', salt).update(refreshId).digest('base64');
       req.body.refreshKey = salt;
-      let token = jwt.sign(req.body, jwtSecret, {
-        expiresIn: tokenExpirationInSeconds,
-      });
+      let token = jwt.sign(req.body, jwtSecret, { expiresIn: tokenExpirationInSeconds });
       let b = Buffer.from(hash);
       let refreshToken = b.toString('base64');
-
-      return res
-        .status(201)
-        .send({ accessToken: token, refreshToken: refreshToken });
+      return res.status(201).send({ accessToken: token, refreshToken: refreshToken });
     } catch (err) {
       return res.status(500).send(err);
     }

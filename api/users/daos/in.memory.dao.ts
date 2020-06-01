@@ -1,3 +1,5 @@
+import * as shortUUID from 'short-uuid';
+
 export class GenericInMemoryDao {
   private static instance: GenericInMemoryDao;
   users: any = [];
@@ -14,68 +16,66 @@ export class GenericInMemoryDao {
   }
 
   addUser(user: any) {
-    let length: number = this.users.length;
-    let newId = 0;
-    if (length > 0) {
-      newId = parseInt(this.users[length - 1].id) + 1;
-    } else {
-      newId = 1;
-    }
-    this.users.push(user);
-    this.users[length].id = newId.toString();
-    return newId.toString();
+    return new Promise((resolve) => {
+      user.id = shortUUID.generate();
+      this.users.push(user);
+      resolve(user.id);
+    });
   }
 
   getUsers() {
-    return this.users;
+    return new Promise((resolve) => {
+      resolve(this.users);
+    });
   }
 
   getUserById(userId: string) {
-    return this.users.find((user: { id: string }) => user.id === userId);
+    return new Promise((resolve) => {
+      resolve(this.users.find((user: { id: string }) => user.id === userId));
+    });
   }
 
   putUserById(user: any) {
-    const objIndex = this.users.findIndex(
-      (obj: { id: any }) => obj.id === user.id
-    );
-    const updatedUsers = [
-      ...this.users.slice(0, objIndex),
-      user,
-      ...this.users.slice(objIndex + 1),
-    ];
-
+    const objIndex = this.users.findIndex((obj: { id: any }) => obj.id === user.id);
+    const updatedUsers = [...this.users.slice(0, objIndex), user, ...this.users.slice(objIndex + 1)];
     this.users = updatedUsers;
-    return `${user.id} update via put`;
+    return new Promise((resolve) => {
+      resolve(`${user.id} updated via put`);
+    });
   }
 
   patchUserById(user: any) {
-    const objIndex = this.users.findIndex(
-      (obj: { id: any }) => obj.id === user.id
-    );
+    const objIndex = this.users.findIndex((obj: { id: any }) => obj.id === user.id);
     let currentUser = this.users[objIndex];
     for (let i in user) {
       if (i !== 'id') {
         currentUser[i] = user[i];
       }
     }
-    this.users = [
-      ...this.users.slice(0, objIndex),
-      currentUser,
-      ...this.users.slice(objIndex + 1),
-    ];
+    this.users = [...this.users.slice(0, objIndex), currentUser, ...this.users.slice(objIndex + 1)];
 
-    return `${user.id} patched`;
+    return new Promise((resolve) => {
+      resolve(`${user.id} patched`);
+    });
   }
 
   removeUserById(userId: string) {
-    const objIndex = this.users.findIndex(
-      (obj: { id: any }) => obj.id === userId
-    );
+    const objIndex = this.users.findIndex((obj: { id: any }) => obj.id === userId);
     this.users.splice(objIndex, 1);
-    return `${userId} deleted`;
+    return new Promise((resolve) => {
+      resolve(`${userId} removed`);
+    });
   }
 
   getUserByEmail(email: string) {
-    return this.users.find((obj: { email: string }) => obj.email === email);
+    return new Promise((resolve) => {
+      const objIndex = this.users.findIndex((obj: { email: any }) => obj.email === email);
+      let currentUser = this.users[objIndex];
+      if (currentUser) {
+        resolve(currentUser);
+      } else {
+        resolve(null);
+      }
+    });
   }
 }
